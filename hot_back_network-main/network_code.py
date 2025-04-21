@@ -16,7 +16,7 @@ import matplotlib as mpl
 # mpl.font_manager.fontManager.addfont('Arial Unicode MS.ttf')
 plt.rcParams['font.sans-serif'] = ['DejaVu Sans', 'Arial', 'Helvetica', 'sans-serif']
 plt.rcParams['axes.unicode_minus'] = False
-mpl.font_manager.fontManager.addfont('Apple Color Emoji.ttf')
+# mpl.font_manager.fontManager.addfont('Apple Color Emoji.ttf')
 plt.rcParams['font.sans-serif']=['Arial Unicode MS', 'Apple Color Emoji'] #用来正常显示中文标签
 plt.rcParams['axes.unicode_minus']=False#用来正常显示负号
 st.title('团体明细网络图生成器-暑期')
