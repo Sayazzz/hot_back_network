@@ -25,8 +25,14 @@ group_id = int(st.text_input('请输入要查询的团体id', '7'))
 @st.cache_data
 def load_data():
     try:
-        author_info_df = pd.read_feather('暑期作者信息.fth')
-        data_use_df = pd.read_feather('暑期互动明细.fth')
+          # 获取当前文件目录的绝对路径
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        
+        # 构建文件的绝对路径
+        author_info_df = os.path.join(current_dir, '暑期作者信息.fth')
+        data_use_df = os.path.join(current_dir, '暑期互动明细.fth')
+        # author_info_df = pd.read_feather('暑期作者信息.fth')
+        # data_use_df = pd.read_feather('暑期互动明细.fth')
 
     except FileNotFoundError as e:
         st.error(f"文件未找到: {e}")
