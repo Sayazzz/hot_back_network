@@ -29,10 +29,13 @@ def load_data():
         current_dir = os.path.dirname(os.path.abspath(__file__))
         
         # 构建文件的绝对路径
-        author_info_df = os.path.join(current_dir, '暑期作者信息.fth')
-        data_use_df = os.path.join(current_dir, '暑期互动明细.fth')
+        author_path = os.path.join(current_dir, '暑期作者信息.fth')
+        data_path = os.path.join(current_dir, '暑期互动明细.fth')
         # author_info_df = pd.read_feather('暑期作者信息.fth')
         # data_use_df = pd.read_feather('暑期互动明细.fth')
+        # 读取文件
+        author_info_df = pd.read_feather(author_path)
+        data_use_df = pd.read_feather(data_path)
 
     except FileNotFoundError as e:
         st.error(f"文件未找到: {e}")
@@ -42,22 +45,48 @@ def load_data():
 author_info, data_use = load_data()
 @st.cache_data
 def load_graph():
-    with open('average_cnt.gpickle','rb') as f:
-        G_all = pickle.load(f)
-    with open('live_cnt.gpickle','rb') as f:
-        G_live_cnt = pickle.load(f)
-    with open('comment_cnt.gpickle','rb') as f:
-        G_comment_cnt = pickle.load(f)
-    with open('live_play_cnt.gpickle','rb') as f:
-        G_live_play_cnt = pickle.load(f)
-    with open('send_message_cnt.gpickle','rb') as f:
-        G_send_message_cnt = pickle.load(f)
-    with open('co_relation_num.gpickle','rb') as f:
-        G_co_relation_num = pickle.load(f)
-    with open('comments_at_author.gpickle','rb') as f:
-        G_comments_at_author = pickle.load(f)
-    with open('common_hard_fans_cnt.gpickle','rb') as f:
-        G_common_hard_fans_cnt = pickle.load(f)
+    # with open('average_cnt.gpickle','rb') as f:
+    #     G_all = pickle.load(f)
+    # with open('live_cnt.gpickle','rb') as f:
+    #     G_live_cnt = pickle.load(f)
+    # with open('comment_cnt.gpickle','rb') as f:
+    #     G_comment_cnt = pickle.load(f)
+    # with open('live_play_cnt.gpickle','rb') as f:
+    #     G_live_play_cnt = pickle.load(f)
+    # with open('send_message_cnt.gpickle','rb') as f:
+    #     G_send_message_cnt = pickle.load(f)
+    # with open('co_relation_num.gpickle','rb') as f:
+    #     G_co_relation_num = pickle.load(f)
+    # with open('comments_at_author.gpickle','rb') as f:
+    #     G_comments_at_author = pickle.load(f)
+    # with open('common_hard_fans_cnt.gpickle','rb') as f:
+    #     G_common_hard_fans_cnt = pickle.load(f)
+
+    try:
+        # 获取当前文件目录的绝对路径
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        
+        # 使用绝对路径打开文件
+        with open(os.path.join(current_dir, 'average_cnt.gpickle'),'rb') as f:
+            G_all = pickle.load(f)
+        with open(os.path.join(current_dir, 'live_cnt.gpickle'),'rb') as f:
+            G_live_cnt = pickle.load(f)
+        with open(os.path.join(current_dir, 'comment_cnt.gpickle'),'rb') as f:
+            G_comment_cnt = pickle.load(f)
+        with open(os.path.join(current_dir, 'live_play_cnt.gpickle'),'rb') as f:
+            G_live_play_cnt = pickle.load(f)
+        with open(os.path.join(current_dir, 'send_message_cnt.gpickle'),'rb') as f:
+            G_send_message_cnt = pickle.load(f)
+        with open(os.path.join(current_dir, 'co_relation_num.gpickle'),'rb') as f:
+            G_co_relation_num = pickle.load(f)
+        with open(os.path.join(current_dir, 'comments_at_author.gpickle'),'rb') as f:
+            G_comments_at_author = pickle.load(f)
+        with open(os.path.join(current_dir, 'common_hard_fans_cnt.gpickle'),'rb') as f:
+            G_common_hard_fans_cnt = pickle.load(f)
+    except FileNotFoundError as e:
+        st.error(f"图文件未找到: {e}")
+        st.stop()
+    
     return G_all, G_live_cnt, G_comment_cnt, G_live_play_cnt, G_send_message_cnt, G_co_relation_num, G_comments_at_author, G_common_hard_fans_cnt
 G_all, G_live_cnt, G_comment_cnt, G_live_play_cnt, G_send_message_cnt, G_co_relation_num, G_comments_at_author, G_common_hard_fans_cnt = load_graph()
 # 获取节点数据，根据用户输入的团体id
